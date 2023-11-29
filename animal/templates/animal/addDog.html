@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add dog</title>
+</head>
+<body>
+    <h2>
+        Add dog
+    </h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="dog_name">Input dog name</label>
+        <input type="text" name="dog_name" id="dog_name"><br>
+        <label for="dog_age">Input dog age</label>
+        <input type="number" min="1" max="120" name="dog_age" id="dog_age"><br>
+        <input type="submit" name="submit">
+    </form>
+    <p>
+        <a href="{% url 'animal:dogs' %}">check dogs</a>
+    </p>
+</body>
+</html>

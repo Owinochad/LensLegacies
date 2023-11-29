@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        *{
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        body{
+            width: 80%;
+            margin: auto;
+            background-color: black;
+            font-family: chivo, sans-serif;
+            color: bisque;
+            text-decoration: none;
+
+        }
+        nav{
+            height: 6vh;
+        }
+        .nav-items{
+            width: 25%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav-items a{
+            color: coral;
+            font-weight: 600;
+            transition: all 300ms ease-in-out;
+        }
+        .nav-items a:hover{
+            color: rgb(245, 89, 32);
+            transform: scale(1.1);
+        }
+        .content{
+            display: flex;
+            justify-content: space-between;
+        }
+        .articles{
+            overflow: auto;
+        }
+        ul{
+            list-style-type: none;
+        }
+        .list-item{
+            padding: 5px;
+            width: 600px;
+            margin: left;
+            border-bottom: .7px solid coral;
+
+        }
+        .list-item a{
+            color: aliceblue;
+            transition: all 300ms ease-in-out;
+        }
+        .list-item a:hover{
+            color: rgb(243, 172, 91);
+        }
+        .blog-details{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1px 0px;
+        }
+        .blog-details strong{
+            color: coral;
+        }
+        ::-webkit-scrollbar{
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background-color: black;
+        }
+        ::-webkit-scrollbar-thumb{
+            background-color: coral;
+            border-radius: 6px;
+            height: 10px;
+        }
+        .sidebar{
+            border: 1px solid coral;
+            border-radius: 1rem;
+            width: 26%;
+            height: max-content;
+            margin: auto;
+            position: fixed;
+            top: 70px;
+            right: 9rem;
+        }
+        .bloggers h4{
+            text-align: center;
+        }
+        .bloggers{
+            margin: auto;
+            margin-right: 35px;
+        }
+        .blogger{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-bottom: 1px solid coral;
+        }
+        .blogger a{
+            color: coral;
+            transition: all  300ms ease-in-out;
+        }
+        .blogger a:hover{
+            transform: scale(1.1);
+            color: rgb(243, 172, 91);
+        }
+        .addNew{
+            width: 80%;
+            margin: auto;
+            padding: 2rem;
+        }
+        .addNew p a{
+            color: coral;
+            font-weight: 600;
+            transition: all 300ms ease-in-out;
+        }
+        .addNew p a:hover{
+            color: rgb(245, 89, 32);
+            transform: scale(1.1);
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-items">
+            <li class="nav_item">
+                <p>
+                    <a href="{% url 'blog:add_blogger' %}">
+                        blogger
+                    </a>
+                </p>
+            </li>
+            <li class="nav_item">
+                <p>
+                    <a href="">
+                        feed
+                    </a>
+                </p>
+            </li>
+            <li class="nav_item">
+                <p>
+                    <a href="{% url 'blog:add_blog' %}">
+                        blog
+                    </a>
+                </p>
+            </li>
+        </ul>
+    </nav>
+    <div class="content">
+    <div class="articles">
+    {% for blog in blog_data %}
+        <ul>
+            <li class="list-item">
+                    <div class="blog-details"><p> <a href="{% url 'blog:writer' blog.blogger_id %}">{{blog.blogger}} </a>  </p><p><strong>{{blog.pub_date}}</strong></p>
+                    </div>
+                        <a href="{% url 'blog:article' blog.blog_id %}">
+                            <h4>{{ blog.title}} </h4>
+                <p>{{blog.body}}</p>
+            </a>
+            </li>
+        </ul>
+        {% endfor%}
+    </div>
+    <div class="sidebar">
+        <div class="bloggers">
+        <h4>Top bloggers!</h4>
+            <ul>
+                {% for rank in ranks %}
+                <li class="blogger">
+                    <a href="{% url 'blog:writer' rank.id %}">{{ rank.name }}</a>
+                    <p>Blogs: {{ rank.blog_count }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="addNew">
+            <h3>Join Our Team of writers</h3>
+            <p><a href="{% url 'blog:add_blogger' %}">Add a new blogger</a></p>
+            <h3>Continue where you left off</h3>
+            <p><a href="{% url 'blog:add_blog' %}">Add a new blog</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

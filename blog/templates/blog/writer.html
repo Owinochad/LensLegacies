@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        *{
+            list-style-type: none;
+            text-decoration: none;
+            font-family: chivo;
+        }
+        html{
+            scroll-behavior: smooth;
+        }
+        body{
+            width: 80%;
+            margin: auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: black;
+            color: aliceblue;
+        }
+        .user-details{
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+        }
+        span{
+            color: coral;
+        }
+        li{
+            border-bottom: .7px solid coral;
+        }
+        .blog{
+            transition: all 300ms ease-in-out;
+        }
+        .blog:hover{
+            font-weight: 550;
+        }
+        .list-item{
+            margin-bottom: 15px;
+        }
+        a{
+            color: coral;
+
+        }
+        .main-page{
+            transition: all 300ms ease-in-out;
+        }
+        .main-page:hover{
+            font-weight: 800;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="user-details">
+        <p> I am <span>{{ writer.name}}</span></p> 
+        <p>@{{ writer.username}}</p>
+    </div>
+
+    <p class="bio"><span>Bio: </span>{{ writer.bio}}</p>
+    
+    <ul>
+        {% for blog in blogs %}
+            <li class="list-item">
+                <a href="{% url 'blog:article' blog.id %}"><span class="blog">{{ blog.title }}</span></a>
+                <p>{{ blog.body }}</p>
+            </li>
+        {% endfor %}
+
+            <a class="main-page" href="{% url 'blog:feed' %}">Main page</a>
+        
+    </ul>
+</body>
+</html>

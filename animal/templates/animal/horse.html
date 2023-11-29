@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <h3>horses</h3>
+        {% if horses%}
+        {% for horse in horses %}
+        <li>
+            <h4>Name: {{horse.Name}}</h4>
+            <p>Name: {{horse.age}}</p>
+        </li>
+        {% endfor %}
+        {% else %}
+        <p>
+            No horses found
+        </p>
+        {% endif %}
+    </ul>
+    <p>
+        <a href="{% url 'animal:cats' %}">intersted in cats</a>
+        </p><p><a href="{% url 'animal:dogs' %}">intersted in dogs</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        *{
+            list-style-type: none;
+            text-decoration: none;
+            font-family: chivo, sans-serif;
+            
+        }
+        body{
+            background-color: black;
+            color: white;
+            width: 80%;
+            height: 100vh;
+            margin: auto;
+            display: flex;
+
+            align-items: center;
+        }
+        a{
+            color: coral;
+        }
+        a:hover{
+            font-weight: 800;
+        }
+        h3{
+            color: coral;
+        }
+    </style>
+</head>
+<body>
+    <article>
+    <h3>{{blog.title}}</h3>
+    <p>published by <a href="{% url 'blog:writer' blog.blogger.id %}">{{blog.blogger.name}}</a></p>
+        <p>{{blog.body}}</p>
+        <a href="{% url 'blog:feed' %}">Main page</a></article>
+        </body>
+    </html>

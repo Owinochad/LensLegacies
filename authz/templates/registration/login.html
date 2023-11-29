@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+<body>
+    {% if form.errors %}
+    <p>Either password or email wrong</p>
+    {% endif %}
+    {% if next %}
+        {% if user.is_authenticated %}
+        <p>sorry, permission denied</p>
+        {% else %}
+        <p>please log in</p>
+        {% endif %}
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <p><input type="email" name="email" placeholder="email@com"></p>
+        <p><input type="passord" name="passord"></p>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

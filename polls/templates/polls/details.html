@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{  title }}</title>
+</head>
+<body>
+        <h3>question</h3>
+
+        <p>{{ question.question_text }}</p>
+
+       <h4>answers</h4>
+        <ol>
+        {% for c in choices %}
+            <li>
+                <p>{{c.choice_text}}</p>
+            </li>
+        {% endfor %}
+        </ol>
+</body>
+</html>
