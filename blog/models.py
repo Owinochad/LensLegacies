@@ -18,6 +18,7 @@ class Blog(m.Model):
     body = m.TextField()
     pub_date = m.DateTimeField("date published")
     blogger = m.ForeignKey(Blogger, on_delete = m.CASCADE)
+    image = m.ImageField(upload_to='blog_images/', null=True, blank=True)
 
     def __str__(self):
         return self.title

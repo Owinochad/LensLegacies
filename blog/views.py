@@ -1,18 +1,50 @@
-from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Blog, Blogger
 from django.db.models import Count
 from django.views import View
 from django.utils import timezone
-from .forms import studentForm, LoginForm, SignupForm
+from .forms import studentForm, LoginForm, SignupForm, editForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
 
-
-
-
 # Create your views here.
+
+def delete_blog(request, blog_id):
+    blog= get_object_or_404(Blog, pk=blog_id)
+
+    if request.method == 'POST':
+        blog.delete()
+        messages.success(request, 'Blog deleted successfully.')
+        return redirect('blog:feed')
+
+    context = {
+        'blog': blog,
+        'title': 'Delete Blog',
+    }
+    return render(request, 'blog/delete_blog.html', context)
+
+def edit_blog(request, blog_id):
+    blog = get_object_or_404(Blog, pk=blog_id)
+
+    if request.method == 'POST':
+        form = editForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Blog edited successfully.')
+            return redirect('blog:feed')
+    else:
+        form = editForm(instance=blog)
+
+    context = {
+        'form': form,
+        'blog': blog,
+        'title': 'Edit Blog',
+    }
+    return render(request, 'blog/edit_blog.html', context)
+
 def user_logout(request):
     logout(request)
     return redirect('blog:login')
@@ -110,6 +142,8 @@ class AddBlogger(View):
         request.session['message'] = bio
 
         return redirect(request.path)
+
+
     
 class AddStudent(View):
 

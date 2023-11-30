@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SignUp page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup.css'%}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </head>
 <body>
     <form method="POST" action="{%url 'blog:signup'%}">
         {%csrf_token%}
         {{form.as_p}}
         <button type="submit">SUBMIT</button>
+        <p class="text-center text-primary"><a href="{%url 'blog:login'%}">already have an account? click to Sign In</a></p>
     </form>
-    <p><a href="{%url 'blog:login'%}">If you alredy have an account click to SignIn</a></p>
 
 </body>
 </html>

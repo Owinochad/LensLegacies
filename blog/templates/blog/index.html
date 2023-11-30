@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    {% load static %}
     <style>
         *{
             text-decoration: none;
@@ -129,6 +130,8 @@
             color: rgb(245, 89, 32);
             transform: scale(1.1);
         }
+        
+        
 
     </style>
 </head>
@@ -176,6 +179,13 @@
                             <h4>{{ blog.title}} </h4>
                 <p>{{blog.body}}</p>
             </a>
+                <div class="row" style="width: 100%">
+                    <div class="col" style="display:flex; justify-content: end; gap: 0.2rem">
+                         <a href="{% url 'blog:delete_blog' blog.blog_id %}"><img style="height: 20px; align-items: end" src="{% static 'images/delete.png' %}" alt=""></a>
+                         <a href="{% url 'blog:edit_blog' blog.blog_id %}"><img style="height: 20px; align-items: end" src="{% static 'images/written-paper.png' %}" alt=""></a>
+                    </div>
+
+                </div>
             </li>
         </ul>
         {% endfor%}
