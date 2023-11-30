@@ -7,6 +7,7 @@ import datetime
 class Blogger(m.Model):
     name = m.CharField(max_length=255)
     username = m.CharField(max_length=255)
+    password = m.CharField(max_length=255, default = 'pass1234')
     bio = m.TextField()
 
     def __str__(self):

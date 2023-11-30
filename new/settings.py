@@ -38,14 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'user.apps.UserConfig',
-    'polls.apps.PollsConfig',
     'blog.apps.BlogConfig',
-    'animal.apps.AnimalConfig',
-    'library.apps.LibraryConfig',
-    'socials.apps.SocialsConfig',
-    'authz.apps.AuthzConfig',
-    'form.apps.FormConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -125,6 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIR = [
+    BASE_DIR, 'static'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

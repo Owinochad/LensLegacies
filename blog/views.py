@@ -4,9 +4,20 @@ from .models import Blog, Blogger
 from django.db.models import Count
 from django.views import View
 from django.utils import timezone
-from .forms import studentForm
+from .forms import studentForm, LoginForm, SignupForm
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout, authenticate, login
+
+
+
 
 # Create your views here.
+def user_logout(request):
+    logout(request)
+    return redirect('blog:login')
+
+@login_required(login_url='blog:login')
 def feed(request):
     blogs = Blog.objects.select_related('blogger').order_by("-pub_date")
     ranks = Blogger.objects.annotate(blog_count = Count('blog')).order_by('-blog_count')[:5]
@@ -125,3 +136,40 @@ class AddStudent(View):
             return HttpResponse(context)
         
         return HttpResponse("not valid")
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username',)
+        password = request.POST.get('password',)
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('blog:feed')  
+        return render(request, 'blog/index.html', {'error': 'Invalid login credentials'})
+    else:
+        form = LoginForm()
+        context = {'form': form}
+        return render(request, 'blog/login.html', context)
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists. Please choose a different username.')
+                return redirect('blog:signup')
+
+            User.objects.create_user(username=username, password=password)
+            
+            return redirect('blog:login')
+        else:
+            return redirect(request.path)
+    form = SignupForm()
+    return render(request, 'blog/signup.html',{'form':form})
+
+    
+

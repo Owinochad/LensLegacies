@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    
 </head>
 <body>
-    <form action="{% url 'login' %}">
+    {{error}}
+    <form method='post' action="{% url 'blog:login' %}">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="submit">
+        <button type="submit">SUBMIT</button>
     </form>
+    <p><a href="{%url 'blog:signup'%}">If you don't have an account click to Signup</a></p>
 </body>
 </html>
