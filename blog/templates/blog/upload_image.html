@@ -39,7 +39,7 @@
         }
 
         .upload-form {
-            width: 400px;
+            width: 60%;
             margin: auto;
             background-color: #333;
             padding: 20px;
@@ -54,28 +54,41 @@
             animation: fadeInDown 1s ease-in-out;
         }
 
+        .upload-form label {
+            color: coral;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .upload-form input[type="text"],
         .upload-form input[type="file"] {
             display: block;
-            margin-bottom: 20px;
-            border: 1px solid coral;
-            padding: 10px;
-            border-radius: 5px;
             width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid coral;
+            border-radius: 5px;
             background-color: #111;
             color: coral;
-            animation: slideInLeft 1s ease-in-out;
+            box-sizing: border-box;
         }
 
         .upload-form button {
             background-color: coral;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
             transition: background-color 0.3s ease-in-out;
             animation: pulse 1s ease-in-out;
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            margin: 0;
+            cursor: pointer;
         }
 
         .upload-form button:hover {
@@ -99,17 +112,6 @@
             100% {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes slideInLeft {
-            0% {
-                transform: translateX(-200px);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
             }
         }
 
@@ -166,10 +168,14 @@
     {% csrf_token %}
 
     <h2>Upload Image</h2>
-    {{ form.as_p }}
+   <label for="id_blog">Blog:</label>
+    {{ form.blog }}
+    <label for="id_title">Image Title:</label>
+    {{ form.title }}
+    <label for="id_image">Image:</label>
+    {{ form.image }}
     <button type="submit">Upload</button>
-    <br>
-   <button style="margin-top: 2px"> <a href="{% url 'blog:gallery' %}"></a>DisplayImage</button>
+
 </form>
 </body>
 </html>

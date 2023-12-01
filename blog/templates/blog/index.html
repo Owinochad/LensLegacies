@@ -30,6 +30,7 @@
             margin: auto;
             display: flex;
             justify-content: space-between;
+            gap: 2rem;
         }
         .nav-items a{
             color: coral;
@@ -154,7 +155,7 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav >
         <ul class="nav-items">
             <li class="nav_item">
                 <p>
@@ -177,6 +178,22 @@
                     </a>
                 </p>
             </li>
+            <li>
+                  <p>
+                    <a href="{% url 'blog:gallery' %}">
+                        Gallery
+                    </a>
+                </p>
+            </li>
+            <li>
+                  <p>
+                    <a href="{% url 'blog:upload' %}">
+                        Upload Images
+                    </a>
+                </p>
+            </li>
+
+
             <li class="nav_item">
                 <p>
                     <a href="{% url 'blog:logout' %}"><img style="height: 30px;gap: 10rem" src=" {% static 'images/logout.png' %}" alt=""></a>

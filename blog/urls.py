@@ -16,6 +16,6 @@ urlpatterns = [
     path('edit_blog/<int:blog_id>/', views.edit_blog, name='edit_blog'),
     path('gallery/', views.gallery, name='gallery'),
     path('uploadimage/', views.upload_image, name='upload'),
-    path('imagedelete/<int:id>', views.imagedelete),
+    path('image_delete/<int:image_id>', views.delete_image, name='image_delete'),
 
 ]

@@ -130,10 +130,13 @@ def upload_image(request):
     else:
         form = ImageForm()
         return render(request, 'blog/upload_image.html', {'form': form})
-def imagedelete(request, id):
-    image = BlogImage.objects.get(id=id)
-    image.delete()
-    return redirect('/gallery')
+def delete_image(request, image_id):
+    blog_image = get_object_or_404(BlogImage, pk=image_id)
+    if request.method == 'POST':
+        blog_image.image.delete()  # Delete the associated image file
+        blog_image.delete()
+        return redirect('blog:gallery')
+    return render(request, 'blog/imagedelete.html', {'blog_image': blog_image})
 def add_blog(request):
     if request.method == 'POST':
         blog_form = BlogForm(request.POST, request.FILES)

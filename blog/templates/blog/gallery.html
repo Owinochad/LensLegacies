@@ -20,6 +20,45 @@
             padding: 20px;
         }
 
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em; /* Slightly bigger */
+            font-weight: bold;
+            font-style: oblique;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+            color: coral; /* Default color */
+        }
+
+        h1:hover {
+            color: rgb(245, 89, 32); /* Hover color */
+        }
+
+        nav {
+            height: 6vh;
+        }
+
+        .nav-items {
+            width: 40%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+        }
+
+        .nav-items a {
+            color: coral;
+            font-weight: 600;
+            transition: all 300ms ease-in-out;
+            text-decoration: none;
+        }
+
+        .nav-items a:hover {
+            color: rgb(245, 89, 32);
+            transform: scale(1.1);
+        }
+
         .content {
             display: flex;
             flex-wrap: wrap;
@@ -46,8 +85,7 @@
             border-radius: 10px;
         }
 
-        .image-details {
-            height: 100px;
+        .details-and-delete {
             position: absolute;
             bottom: 0;
             left: 0;
@@ -56,96 +94,88 @@
             background-color: rgba(0, 0, 0, 0.7);
             border-bottom-left-radius: 10px;
             border-bottom-right-radius: 10px;
-            transition: background-color 0.3s ease-in-out;
+            transition: background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0; /* Hide by default */
         }
 
-        .image-container:hover .image-details {
-            background-color: rgba(245, 89, 32, 0.7);
+        .image-container:hover .details-and-delete {
+            background-color: rgba(245, 89, 32, 0.4);
+            opacity: 0.8; /* Show on hover */
         }
 
-        p {
+        .details-and-delete p {
             margin: 5px 0;
+            color: white;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
+        .delete-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 20px;
+            opacity: 0; /* Hide by default */
+            transition: opacity 0.3s ease-in-out;
         }
 
-        nav{
-            height: 6vh;
-        }
-        .nav-items{
-            width: 40%;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            list-style-type: none;
-        }
-        .nav-items a{
-            color: coral;
-            font-weight: 600;
-            transition: all 300ms ease-in-out;
-            text-decoration: none;
-        }
-        .nav-items a:hover{
-            color: rgb(245, 89, 32);
-            transform: scale(1.1);
+        .image-container:hover .delete-icon {
+            opacity: 1; /* Show on hover */
         }
     </style>
 
 </head>
 <body>
 
-     <h1 STYLE="font-weight: bolder; font-style: oblique; text-align: center">GALLERY</h1> <br>
-     <nav>
-        <ul class="nav-items" style="list-style-type: none">
-            <li class="nav_item">
-                <p>
-                    <a href="{% url 'blog:add_blogger' %}">
-                        blogger
-                    </a>
-                </p>
-            </li>
-            <li class="nav_item">
-                <p>
-                    <a href="{% url 'blog:feed' %}">
-                        feed
-                    </a>
-                </p>
-            </li>
-            <li class="nav_item">
-                <p>
-                    <a href="{% url 'blog:add_blog' %}">
-                        blog
-                    </a>
-                </p>
-            </li>
+<h1>Gallery</h1>
+<nav>
+    <ul class="nav-items" style="list-style-type: none">
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:add_blogger' %}">
+                    blogger
+                </a>
+            </p>
+        </li>
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:feed' %}">
+                    feed
+                </a>
+            </p>
+        </li>
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:add_blog' %}">
+                    blog
+                </a>
+            </p>
+        </li>
 
-            <li class="nav_item">
-                <p>
-                    <a href="{% url 'blog:upload' %}">
-                        Upload images
-                    </a>
-                </p>
-            </li>
-        </ul>
-    </nav>
- <br>
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:upload' %}">
+                    Upload images
+                </a>
+            </p>
+        </li>
+    </ul>
+</nav>
+<br>
 
-    <div class="content" style="display: flex; ">
+<div class="content" style="display: flex; ">
 
-        {% for blog_image in blog_images %}
-            <div class="image-container">
-                <img src="{{ blog_image.image.url }}" alt="{{ blog_image.title }}">
-                <div class="image-details">
-                    <p>Title: {{ blog_image.title }}</p>
-                    <p>Blogger: {{ blog_image.blog.blogger.name }}</p>
-                    <p>Date Published: {{ blog_image.blog.pub_date }}</p>
-                    <p><a href="/imagedelete/ {{ blog_image.blog.id }}" ><img src="{% static 'images/delete.png' %}" alt=""></a></p>
-                </div>
+    {% for blog_image in blog_images %}
+        <div class="image-container">
+            <img src="{{ blog_image.image.url }}" alt="{{ blog_image.title }}">
+            <div class="details-and-delete">
+                <p>Title: {{ blog_image.title }}</p>
+                <p>Blogger: {{ blog_image.blog.blogger.name }}</p>
+                <p>Date Published: {{ blog_image.blog.pub_date }}</p>
+                <a class="delete-icon" href="{% url 'blog:image_delete' blog_image.id %}">
+                    <img style="height: 20px" src="{% static 'images/bin.png' %}" alt="Delete">
+                </a>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endfor %}
+</div>
 </body>
 </html>
