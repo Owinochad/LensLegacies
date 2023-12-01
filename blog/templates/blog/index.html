@@ -43,6 +43,7 @@
         .content{
             display: flex;
             justify-content: space-between;
+            gap: 20px;
         }
         .articles{
             overflow: auto;
@@ -54,7 +55,7 @@
             padding: 5px;
             width: 600px;
             margin: left;
-            border-bottom: .7px solid coral;
+            border-bottom: 0.7px solid coral;
 
         }
         .list-item a{
@@ -88,13 +89,15 @@
         .sidebar{
             border: 1px solid coral;
             border-radius: 1rem;
-            width: 26%;
+            width: 100%;
+            max-width: 400px;
             height: max-content;
             margin: auto;
             position: fixed;
             top: 70px;
             right: 9rem;
         }
+
         .bloggers h4{
             text-align: center;
         }
@@ -130,9 +133,24 @@
             color: rgb(245, 89, 32);
             transform: scale(1.1);
         }
-        
-        
 
+            /* Media query for smaller screens */
+       @media only screen and (max-width: 600px) {
+        .nav-items {
+        width: 100%;
+        }
+
+        .content {
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .sidebar {
+            width: 100%;
+            max-width: none;
+            right: 0;
+        }
+        }
     </style>
 </head>
 <body>
@@ -161,9 +179,7 @@
             </li>
             <li class="nav_item">
                 <p>
-                    <a href="{% url 'blog:logout' %}">
-                        SignOut
-                    </a>
+                    <a href="{% url 'blog:logout' %}"><img style="height: 30px;gap: 10rem" src=" {% static 'images/logout.png' %}" alt=""></a>
                 </p>
             </li>
         </ul>

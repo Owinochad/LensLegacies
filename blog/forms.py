@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from.models import Blog, Blogger
+from.models import Blog, BlogImage
 class studentForm(forms.Form):
     name = forms.CharField(max_length=100)
     age = forms.IntegerField()
@@ -23,7 +23,16 @@ class editForm(forms.ModelForm):
         fields = ['blogger', 'title', 'body']
 
 class BlogForm(forms.ModelForm):
+    image = forms.ImageField()
     class Meta:
         model= Blog
         fields = ['blogger', 'title', 'body', 'image']
+
+class ImageForm(forms.ModelForm):
+    class Meta:
+        model = BlogImage
+        fields = ['blog', 'image', 'title']
+
+
+
 

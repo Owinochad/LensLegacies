@@ -22,3 +22,12 @@ class Blog(m.Model):
 
     def __str__(self):
         return self.title
+
+class BlogImage(m.Model):
+    blog = m.ForeignKey(Blog, on_delete=m.CASCADE)
+    image = m.ImageField(upload_to='blog_images/')
+    title = m.CharField(max_length=100)
+    date_published = m.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title

@@ -1,0 +1,24 @@
+/* Media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .nav-items {
+        width: 100%;
+    }
+
+    .content {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    form {
+        width: 100%;
+    }
+}

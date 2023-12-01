@@ -1,11 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Blog, Blogger
+from .models import Blog, Blogger, BlogImage
 from django.db.models import Count
 from django.views import View
 from django.utils import timezone
-from .forms import studentForm, LoginForm, SignupForm, editForm
+from .forms import studentForm, LoginForm, SignupForm, editForm, ImageForm, BlogForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, authenticate, login
@@ -120,12 +120,53 @@ class AddBlog(View):
 
         return redirect(request.path)
     
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/uploadimage')
+    else:
+        form = ImageForm()
+        return render(request, 'blog/upload_image.html', {'form': form})
+def imagedelete(request, id):
+    image = BlogImage.objects.get(id=id)
+    image.delete()
+    return redirect('/gallery')
+def add_blog(request):
+    if request.method == 'POST':
+        blog_form = BlogForm(request.POST, request.FILES)
+        image_form = ImageForm(request.POST, request.FILES)
+
+        if blog_form.is_valid() and image_form.is_valid():
+            blog = blog_form.save()
+            image = image_form.save(commit=False)
+            image.blog = blog
+            image.save()
+
+            return redirect('gallery')
+    else:
+        blog_form = BlogForm()
+        image_form = ImageForm()
+
+    return render(request, 'blog/add_blog.html', {'blog_form': blog_form, 'image_form': image_form})
+
+def gallery(request):
+    blog_images = BlogImage.objects.select_related('blog').all()
+
+    context = {
+        'blog_images': blog_images,
+    }
+
+    return render(request, 'blog/gallery.html', context)
+
 class AddBlogger(View):
 
     def get(self, request):
         bio = request.session.get('bio', False)
 
-        if (bio) : del(request.session['message'])
+        if (bio): del(request.session['message'])
         
         context = {
             "message": bio,

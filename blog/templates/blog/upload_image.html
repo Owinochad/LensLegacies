@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #111;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            color: white;
+        }
+
+        nav {
+            height: 6vh;
+            margin-bottom: 20px;
+        }
+
+        .nav-items {
+            width: 40%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            list-style-type: none;
+        }
+
+        .nav-items a {
+            color: coral;
+            font-weight: 600;
+            transition: all 300ms ease-in-out;
+            text-decoration: none;
+        }
+
+        .nav-items a:hover {
+            color: rgb(245, 89, 32);
+            transform: scale(1.1);
+        }
+
+        .upload-form {
+            width: 400px;
+            margin: auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .upload-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: coral;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        .upload-form input[type="file"] {
+            display: block;
+            margin-bottom: 20px;
+            border: 1px solid coral;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #111;
+            color: coral;
+            animation: slideInLeft 1s ease-in-out;
+        }
+
+        .upload-form button {
+            background-color: coral;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease-in-out;
+            animation: pulse 1s ease-in-out;
+        }
+
+        .upload-form button:hover {
+            background-color: rgb(245, 89, 32);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-200px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul class="nav-items" style="list-style-type: none">
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:add_blogger' %}">
+                    blogger
+                </a>
+            </p>
+        </li>
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:feed' %}">
+                    feed
+                </a>
+            </p>
+        </li>
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:add_blog' %}">
+                    blog
+                </a>
+            </p>
+        </li>
+
+        <li class="nav_item">
+            <p>
+                <a href="{% url 'blog:gallery' %}">
+                    Gallery
+                </a>
+            </p>
+        </li>
+    </ul>
+</nav>
+<br>
+
+<form method="post" enctype="multipart/form-data" class="upload-form">
+    {% csrf_token %}
+
+    <h2>Upload Image</h2>
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+    <br>
+   <button style="margin-top: 2px"> <a href="{% url 'blog:gallery' %}"></a>DisplayImage</button>
+</form>
+</body>
+</html>
