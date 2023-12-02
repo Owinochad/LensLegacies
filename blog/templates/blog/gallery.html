@@ -19,21 +19,23 @@
             margin: 0;
             padding: 20px;
         }
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+    font-style: oblique;
+    font-family: chivo,sans-serif;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    color: coral;
+    padding: 10px; /* Add some padding for better visibility */
+}
 
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5em; /* Slightly bigger */
-            font-weight: bold;
-            font-style: oblique;
-            cursor: pointer;
-            transition: color 0.3s ease-in-out;
-            color: coral; /* Default color */
-        }
-
-        h1:hover {
-            color: rgb(245, 89, 32); /* Hover color */
-        }
+h1:hover {
+    color: rgb(245, 89, 32);
+    text-shadow: 0 0 10px rgba(245, 89, 32, 0.8); /* Add a subtle glow effect on hover */
+}
 
         nav {
             height: 6vh;
@@ -125,27 +127,27 @@
 </head>
 <body>
 
-<h1>Gallery</h1>
+<h1>GALLERY</h1>
 <nav>
     <ul class="nav-items" style="list-style-type: none">
         <li class="nav_item">
             <p>
                 <a href="{% url 'blog:add_blogger' %}">
-                    blogger
+                    Blogger
                 </a>
             </p>
         </li>
         <li class="nav_item">
             <p>
                 <a href="{% url 'blog:feed' %}">
-                    feed
+                    Feed
                 </a>
             </p>
         </li>
         <li class="nav_item">
             <p>
                 <a href="{% url 'blog:add_blog' %}">
-                    blog
+                    Blog
                 </a>
             </p>
         </li>
@@ -153,7 +155,7 @@
         <li class="nav_item">
             <p>
                 <a href="{% url 'blog:upload' %}">
-                    Upload images
+                    Upload Images
                 </a>
             </p>
         </li>

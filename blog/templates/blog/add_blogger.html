@@ -81,30 +81,33 @@
             color: rgb(245, 89, 32);
             transform: scale(1.1);
         }
+        h2{
+            margin-top: -10px;
+        }
 
     </style>
 </head>
-<body>
+<body><br><br><br>
     <nav>
         <ul class="nav-items">
             <li class="nav_item">
                 <p>
                     <a href="{% url 'blog:add_blogger' %}">
-                        blogger
+                        Blogger
                     </a>
                 </p>
             </li>
             <li class="nav_item">
                 <p>
                     <a href="{% url 'blog:feed' %}">
-                        feed
+                        Feed
                     </a>
                 </p>
             </li>
             <li class="nav_item">
                 <p>
                     <a href="{% url 'blog:add_blog' %}">
-                        blog
+                        Blog
                     </a>
                 </p>
             </li>
